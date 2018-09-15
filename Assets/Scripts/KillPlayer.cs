@@ -9,35 +9,24 @@ public class KillPlayer : MonoBehaviour {
 	private LevelManager lm;
 	private PlayerController player;
 
-
-
-	void Start ()
+	void Awake ()
 	{
 		sr = GameObject.FindWithTag("Player").GetComponent<SpriteRenderer>();
 		lm = FindObjectOfType<LevelManager>();
 		player = FindObjectOfType<PlayerController>();
-
-
-	}
+    }
 
 	void OnCollisionEnter2D (Collision2D other)
 	{	
 		if(other.gameObject.tag == "Player")
 		{
-			if(lm.respawnSlider.value == lm.respawnSlider.maxValue){
-				lm.respawnPlayer();
-				lm.respawnSlider.value = lm.respawnSlider.minValue;
-			} else {
-				print ("Dead");
-				player.playSound(3);
-				sr.sprite = deadSprite;
-				Time.timeScale = 0.03f;
-				//Application.LoadLevel(Application.loadedLevel);
-				lm.GameOverScreen();
-				player.gameIsOver = true;
-
-
-			}
+			print ("Dead");
+			player.playSound(2);
+            if(deadSprite != null) {
+                sr.sprite = deadSprite;
+            }
+            Time.timeScale = 0.03f;
+			lm.gameIsOver = true;
 		}
 	}
 }
